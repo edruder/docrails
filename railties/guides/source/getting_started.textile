@@ -87,7 +87,7 @@ Action View manages the views of your Rails application. It can create both HTML
 
 h5. Action Dispatch
 
-Action Dispatch handles routing of web requests and dispatches them as you want, either to your application, any other Rack application.
+Action Dispatch handles routing of web requests and dispatches them as you want, either to your application, or any other Rack application.
 
 h5. Action Mailer
 
@@ -107,7 +107,7 @@ Active Resource provides a framework for managing the connection between busines
 
 h5. Active Support
 
-Active Support is an extensive collection of utility classes and standard Ruby library extensions that are used in the Rails, both by the core code and by your applications.
+Active Support is an extensive collection of utility classes and standard Ruby library extensions that are used in Rails, both by the core code and by your applications.
 
 h5. Railties
 
@@ -115,7 +115,7 @@ Railties is the core Rails code that builds new Rails applications and glues the
 
 h4. REST
 
-Rest stands for Representational State Transfer and is the foundation of the RESTful architecture. This is generally considered to be Roy Fielding's doctoral thesis, "Architectural Styles and the Design of Network-based Software Architectures":http://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm. While you can read through the thesis, REST in terms of Rails boils down to two main principles:
+Rest stands for Representational State Transfer and is the foundation of the RESTful architecture. This is generally considered to be defined in Roy Fielding's doctoral thesis, "Architectural Styles and the Design of Network-based Software Architectures":http://www.ics.uci.edu/~fielding/pubs/dissertation/top.htm. While you can read through the thesis, REST in terms of Rails boils down to two main principles:
 
 * Using resource identifiers such as URLs to represent resources.
 * Transferring representations of the state of that resource between system components.
@@ -124,7 +124,7 @@ For example, to a Rails application a request such as this:
 
 <tt>DELETE /photos/17</tt>
 
-would be understood to refer to a photo resource with the ID of 17, and to indicate a desired action - deleting that resource. REST is a natural style for the architecture of web applications, and Rails hooks into this shielding you from many of the RESTful complexities and browser quirks.
+would be understood to refer to a photo resource with the ID of 17, and to indicate a desired action - deleting that resource. REST is a natural style for the architecture of web applications, and Rails hooks into this, shielding you from many of the RESTful complexities and browser quirks.
 
 If you'd like more details on REST as an architectural style, these resources are more approachable than Fielding's thesis:
 
@@ -148,11 +148,11 @@ Usually run this as the root user:
 
 NOTE. In the Rails 3.0.0-beta, you will need to manually install the dependencies for Rails itself as a bug in rubygems will cause these to not be installed, see the "3.0 Release Notes":http://guides.rails.info/3_0_release_notes.html for the commands to run.
 
-TIP. If you're working on Windows, you may find it easier to install "Instant Rails":http://instantrails.rubyforge.org/wiki/wiki.pl. Be aware, though, that Instant Rails releases tend to lag seriously behind the actual Rails version. Also, you will find that Rails development on Windows is overall less pleasant than on other operating systems. If at all possible, we suggest that you install a Linux virtual machine and use that for Rails development, instead of using Windows.
+TIP. If you're working on Windows, you may find it easier to install "Instant Rails":http://instantrails.rubyforge.org/wiki/wiki.pl. Be aware, though, that Instant Rails releases tend to lag seriously behind the actual Rails version. Also, you will find that Rails development on Windows is overall less pleasant than on other operating systems. If at all possible, we suggest that, instead of using Windows, you install a Linux virtual machine and use that for Rails development.
 
 h4. Creating the Blog Application
 
-The best way to use this guide is to follow each step as it happens, no code or step needed to make this example application has been left out, so you can literally follow along step by step.  If you need to see the completed code, you can download it from "Getting Started Code":http://github.com/mikel/getting-started-code.
+The best way to use this guide is to follow each step as it happens - no code or step needed to make this example application has been left out, so you can literally follow along step by step. If you need to see the completed code, you can download it from "Getting Started Code":http://github.com/mikel/getting-started-code.
 
 To begin, open a terminal, navigate to a folder where you have rights to create files, and type:
 
@@ -170,7 +170,7 @@ After you create the blog application, switch to its folder to continue work dir
 $ cd blog
 </shell>
 
-In any case, Rails will create a folder in your working directory called <tt>blog</tt>. Open up that folder and explore its contents. Most of the work in this tutorial will happen in the <tt>app/</tt> folder, but here's a basic rundown on the function of each folder that Rails creates in a new application by default:
+Most of the work in this tutorial will happen in the <tt>app/</tt> directory, but here's a basic rundown on the function of each directory that Rails creates in a new application by default:
 
 |_.File/Folder|_.Purpose|
 |Gemfile|This file allows you to specify what gem dependencies are needed for your Rails application.|
@@ -363,7 +363,7 @@ The scaffold generator will build 15 files in your application, along with some 
 |app/views/posts/edit.html.erb                |A view to edit an existing post|
 |app/views/posts/show.html.erb                |A view to display a single post|
 |app/views/posts/new.html.erb                 |A view to create a new post|
-|app/views/posts/_form.html.erb               |A view to control the overall look and feel of the other posts views|
+|app/views/posts/_form.html.erb               |A partial for the form shared by the edit and new views|
 |app/views/layouts/posts.html.erb             |A view to control the overall look and feel of the other posts views|
 |test/functional/posts_controller_test.rb     |Functional testing harness for the posts controller|
 |app/helpers/posts_helper.rb                  |Helper functions to be used from the posts views|
@@ -545,7 +545,7 @@ This view iterates over the contents of the +@posts+ array to display content an
 * +link_to+ builds a hyperlink to a particular destination
 * +edit_post_path+ is a helper that Rails provides as part of RESTful routing. You'll see a variety of these helpers for the different actions that the controller includes.
 
-NOTE. In previous versions of Rails, you had to use +<%=h post.name %>+ so that any HTML would be escaped before being inserted into the page.  In Rails 3.0, this is now the default.  To get unescaped HTML, you now use +<%= raw post.name %>+.
+NOTE. In previous versions of Rails, you had to use +&lt;%=h post.name %&gt;+ so that any HTML would be escaped before being inserted into the page.  In Rails 3.0, this is now the default.  To get unescaped HTML, you now use +&lt;%= raw post.name %&gt;+.
 
 TIP: For more details on the rendering process, see "Layouts and Rendering in Rails":layouts_and_rendering.html.
 
@@ -654,11 +654,11 @@ def create
 end
 </ruby>
 
-The +create+ action instantiates a new Post object from the data supplied by the user on the form, which Rails makes available in the +params+ hash. After successfully saving the new post, returns the appropriate format that the user has requested (HTML in our case). It then redirects the user to the resulting post +show+ action and sets a notice to the user that the Post was successfully created.
+The +create+ action instantiates a new Post object from the data supplied by the user on the form, which Rails makes available in the +params+ hash. After successfully saving the new post, the +create+ action returns the appropriate format that the user requested (HTML in our case), then redirects the user to the resulting post +show+ action and sets a notice to the user that the post was successfully created.
 
-If the post was not successfully saved, due to a validation error, then the controller returns the user back to the +new+ action with any error messages so that the user has the chance to fix the error and try again.
+If the post was not successfully saved, perhaps due to a validation error, then the controller returns the user back to the +new+ action with any error messages so that the user has the chance to fix the error and try again.
 
-The "Post was successfully created" message is stored inside of the Rails +flash+ hash, (usually just called the Flash) so that messages can be carried over to another action, providing the user with useful information on the status of their request. In the case of +create+, the user never actually sees any page rendered during the Post creation process, because it immediately redirects to the new Post as soon Rails saves the record. The Flash carries over a message to the next action, so that when the user is redirected back to the +show+ action, they are presented with a message saying "Post was successfully created."
+The "Post was successfully created" message is stored inside of the Rails +flash+ hash (usually just called the Flash), so that messages can be carried over to the next action, providing the user with useful information on the status of their request. In the case of +create+, the user never actually sees any page rendered during the post creation process, because it immediately redirects to the new post as soon Rails saves the record. The Flash carries over a message to the next action, so that when the user is redirected to the +show+ action, they are presented with a message saying "Post was successfully created."
 
 h4. Showing an Individual Post
 
@@ -675,7 +675,7 @@ def show
 end
 </ruby>
 
-The +show+ action uses +Post.find+ to search for a single record in the database by its id value. After finding the record, Rails displays it by using +show.html.erb+:
+The +show+ action uses +Post.find+ to search for a single record in the database by its +id+ value. After finding the record, Rails displays it by using +show.html.erb+:
 
 <erb>
 <p>
@@ -700,7 +700,7 @@ The +show+ action uses +Post.find+ to search for a single record in the database
 
 h4. Editing Posts
 
-Like creating a new post, editing a post is a two-part process. The first step is a request to +edit_post_path(@post)+ with a particular post. This calls the +edit+ action in the controller:
+Like creating a new post, editing a post is a two-part process. The first step is a request to a URL like +http://localhost:3000/posts/1/edit+ (the +edit_post_path+ helper method generates this URL, given a particular post). This calls the +edit+ action in the controller:
 
 <ruby>
 def edit
@@ -720,7 +720,7 @@ After finding the requested post, Rails uses the +edit.html.erb+ view to display
 <% end %>
 </erb>
 
-Again, as with the +new+ action, the +edit+ action is using the +form+ partial, this time however, the form will do a PUT action to the PostsController and the submit button will display "Update Post"
+Again, as with the +new+ action, the +edit+ action is using the +form+ partial. This time, however, the form will do a PUT action to the PostsController and the submit button will display "Update Post".
 
 Submitting the form created by this view will invoke the +update+ action within the controller:
 
@@ -768,7 +768,7 @@ Now that you've seen what's in a model built with scaffolding, it's time to add 
 
 h4. Generating a Model
 
-Models in Rails use a singular name, and their corresponding database tables use a plural name. For the model to hold comments, the convention is to use the name Comment. Even if you don't want to use the entire apparatus set up by scaffolding, most Rails developers still use generators to make things like models and controllers. To create the new model, run this command in your terminal:
+Models in Rails use a singular name, and their corresponding database tables use a plural name. A reasonable name for the model handling comments would be Comment, with a corresponding database table named comments. Even if you don't want to use the entire apparatus set up by scaffolding, most Rails developers still use generators to make things like models and controllers. To create the new model, run this command in your terminal:
 
 <shell>
 $ rails generate model Comment commenter:string body:text post:references
@@ -858,7 +858,7 @@ TIP: For more information on Active Record associations, see the "Active Record 
 
 h4. Adding a Route for Comments
 
-As with the +home+ controller, we will need to add a route so that Rails knows where we would like to navigate to see +comments+.  Open up the +config/routes.rb+ file again, you will see an entry that was added automatically for +posts+ near the top by the scaffold generator, +resources :posts+, edit it as follows:
+As with the +home+ controller, we will need to add a route so that Rails knows where we would like to navigate to see +comments+.  Open up the +config/routes.rb+ file again and navigate to the entry that was added automatically for +posts+ near the top by the scaffold generator, +resources :posts+. Edit it as follows:
 
 <ruby>
 resources :posts do
@@ -885,9 +885,9 @@ This creates four files:
 * +test/functional/comments_controller_test.rb+ - The functional tests for the controller
 * +test/unit/helpers/comments_helper_test.rb+ - The unit tests for the helper
 
-Like with any blog, our readers will create their comments directly after reading the post, and once they have added their comment, will be sent back to the post show page to see their comment now listed.  Due to this, our +CommentsController+ is there to provide a method to create comments and delete SPAM comments when they arrive.
+As with any blog, our readers will create their comments directly after reading the post, and once they have added their comment, will be sent back to the post +show+ page with their new comment listed.  Our +CommentsController+ is there to provide a method to create comments and to delete spam comments when they arrive.
 
-So first, we'll wire up the Post show template (+/app/views/posts/show.html.erb+) to let us make a new comment:
+First, we'll wire up the Post +show+ template (+/app/views/posts/show.html.erb+) to let us make a new comment:
 
 <erb>
 <p>
@@ -938,11 +938,11 @@ class CommentsController < ApplicationController
 end
 </ruby>
 
-You'll see a bit more complexity here than you did in the controller for posts. That's a side-effect of the nesting that you've set up; each request for a comment has to keep track of the post to which the comment is attached, thus the initial find action to the Post model to get the post in question.
+You'll see a bit more complexity here than you did in the controller for posts. That's a side-effect of the nesting that you've set up -- each request for a comment has to keep track of the post to which the comment is attached, thus the initial call to the Post model's +find+ method to get the post in question.
 
-In addition, the code takes advantage of some of the methods available for an association. For example, in the +new+ method, it calls
+In addition, the code takes advantage of some of the methods available for a +has_many+ association -- the Post model's +comments+ method returns the collection of comments that are associated with a particular post and calling +create+ on that collection makes a new comment associated with the post and saves it to the database.
 
-Once we have made the new comment, we send the user back to the +post_path(@post)+ URL.  This runs the +show+ action of the +PostsController+ which then renders the +show.html.erb+ template where we want the comment to show, so then, we'll add that to the +app/view/posts/show.html.erb+.
+Once we have made the new comment, we send the user back to the +post_path(@post)+ URL.  This runs the +show+ action of the +PostsController+ which then renders the +show.html.erb+ template where we want the comment to show. Let's add that to the +app/view/posts/show.html.erb+:
 
 <erb>
 <p>
