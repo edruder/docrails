@@ -1000,11 +1000,11 @@ Now you can add posts and comments to your blog and have them show up in the rig
 
 h3. Refactorization
 
-Now that we have Posts and Comments working, we can take a look at the +app/views/posts/show.html.erb+ template, it is getting long and awkward, we can use partials to clean this up.
+Now that we have Posts and Comments working, let's take a look at the +app/views/posts/show.html.erb+ template--it's getting a bit long and awkward. We can use partials to clean it up.
 
 h4. Rendering Partial Collections
 
-First will make a comment partial to extract showing all the comments for the post, so make a file +app/views/comments/_comment.html.erb+ and put into it:
+First we'll make a comment partial to extract showing all the comments for the post. Create a file +app/views/comments/_comment.html.erb+ and put into it:
 
 <erb>
 <p>
@@ -1018,7 +1018,7 @@ First will make a comment partial to extract showing all the comments for the po
 </p>
 </erb>
 
-Then in the +app/views/posts/show.html.erb+ you can change it to look like the following:
+Then, change +app/views/posts/show.html.erb+ to look like the following:
 
 <erb>
 <p>
@@ -1063,11 +1063,11 @@ Then in the +app/views/posts/show.html.erb+ you can change it to look like the f
 <%= link_to 'Back to Posts', posts_path %> |
 </erb>
 
-This will now render the partial in +app/views/comments/_comment.html.erb+ once for each comment that is in the +@post.comments+ collection.  As the +render+ method iterates over the <tt>@post.comments</tt> collection, it assigns each comment to a local variable named the same as the partial, in this case +comment+ which is then available in the partial for us to show.
+This will render the partial in +app/views/comments/_comment.html.erb+ once for each comment that is in the +@post.comments+ collection. As the +render+ method iterates over the <tt>@post.comments</tt> collection, it assigns each comment to a local variable named the same as the partial -- in this case +comment+ -- which is then available in the partial for us to show.
 
 h4. Rendering a Partial Form
 
-Lets also move that new comment section out to it's own partial, again, you create a file +app/views/comments/_form.html.erb+ and in it you put:
+Let's also move that new comment section out to its own partial. Again, you create a file +app/views/comments/_form.html.erb+ and in it you put:
 
 <erb>
 <% form_for([@post, @post.comments.build]) do |f| %>
@@ -1087,7 +1087,7 @@ Lets also move that new comment section out to it's own partial, again, you crea
 <% end %>
 </erb>
 
-Then you make the +app/views/posts/show.html.erb+ look like the following:
+Then you make +app/views/posts/show.html.erb+ look like the following:
 
 <erb>
 <p>
@@ -1118,9 +1118,9 @@ Then you make the +app/views/posts/show.html.erb+ look like the following:
 <%= link_to 'Back to Posts', posts_path %> |
 </erb>
 
-The second render just defines the partial template we want to render, <tt>comments/form</tt>, Rails is smart enough to spot the forward slash in that string and realise that you want to render the <tt>_form.html.erb</tt> file in the <tt>app/views/comments</tt> directory.
+The second render just specifies the partial template we want to render, <tt>comments/form</tt>. Rails is smart enough to spot the forward slash in that string and realize that you want to render the <tt>_form.html.erb</tt> partial in the <tt>app/views/comments</tt> directory.
 
-The +@post+ object is available any partials rendered in the view because we defined it as an instance variable.
+The +@post+ object is available to any partials rendered in the view because we defined it as an instance variable.
 
 h3. Deleting Comments
 
